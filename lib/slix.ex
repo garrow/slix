@@ -9,6 +9,19 @@ defmodule Slix do
     [ indent: String.length(str) - String.length(stripped) , line: stripped ]
   end
 
+
+  def group_lines(_depth, []), do: []
+  def group_lines(depth, [ h | t ]) do
+    cond do
+      h[:indent] == depth ->
+        [h | group_lines(h[:indent], t)]
+      h[:indent] > depth ->
+        [ h ++ [nesting: group_lines(h[:indent], t)] ]
+      h[:indent] < depth ->
+        [ ] # shit, this approach is broken
+    end
+  end
+
   def html(tag) do
     "<#{tag}>"
   end

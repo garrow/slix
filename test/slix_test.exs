@@ -36,4 +36,46 @@ defmodule SlixTest do
       [ indent: 0, line: ""],
     ]
   end
+
+
+  test "grouping lines with simple indentation" do
+    lines = [
+      [ indent: 0, line: "div"],
+      [ indent: 2, line: "p Hello"],
+      [ indent: 4, line: ~S{a href="#"}],
+    ]
+
+    output = [
+      [ indent: 0, line: "div", nesting: [
+        [ indent: 2, line: "p Hello", nesting: [
+          [ indent: 4, line: ~S{a href="#"}, nesting: []]]]]],
+    ]
+
+    assert Slix.group_lines(-1, lines) == output
+
+  end
+
+  @tag :pending
+  test "grouping lines with reducing indentation" do
+    lines = [
+      [ indent: 0, line: "div"],
+      [ indent: 2, line: "p Hello"],
+      [ indent: 4, line: ~S{a href="#"}],
+      [ indent: 0, line: "h3 slim"],
+      [ indent: 0, line: ""],
+    ]
+
+    output = [
+      [ indent: 0, line: "div", nesting: [
+        [ indent: 2, line: "p Hello", nesting: [
+          [ indent: 4, line: ~S{a href="#"}, nesting: []]]]]],
+      [ indent: 0, line: "h3 slim", nesting: []],
+      [ indent: 0, line: "", nesting: []],
+    ]
+
+    assert Slix.group_lines(-1, lines) == output
+
+  end
+
+
 end
