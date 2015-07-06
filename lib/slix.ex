@@ -9,7 +9,6 @@ defmodule Slix do
     [ indent: String.length(str) - String.length(stripped) , line: stripped ]
   end
 
-
   def group_lines(_depth, []), do: []
   def group_lines(depth, [ h | t ]) do
     cond do
