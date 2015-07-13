@@ -1,11 +1,8 @@
 defmodule Slix do
+
   def render(template_string) do
     String.split(template_string, "\n")
     |> Enum.map fn(x) -> detect_indent x end
-  end
-
-  def render_nested(template_string) do
-    render(template_string) |> group_lines |> render_eex
   end
 
   def detect_indent([]),  do: %{ indent: 0, line: "", nesting: [] }
