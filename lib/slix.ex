@@ -1,5 +1,6 @@
 defmodule Slix do
 
+
   def render(template_string) do
     String.split(template_string, "\n")
     |> Enum.map fn(x) -> detect_indent x end
