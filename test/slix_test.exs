@@ -1,19 +1,6 @@
 defmodule SlixTest do
   use ExUnit.Case
 
-  test "html tags" do
-    assert Slix.html("br") == "<br>"
-  end
-
-  test "html tags with content" do
-    assert Slix.html("p", "content") == "<p>content</p>"
-  end
-
-  test "html tags with content fn" do
-    f = fn -> "some whatever content" end;
-    assert Slix.html("p", f) == "<p>some whatever content</p>"
-  end
-
   test "detects indentation" do
     source = "    p"
 

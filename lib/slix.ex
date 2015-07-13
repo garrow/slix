@@ -16,7 +16,6 @@ defmodule Slix do
 
 
   def render_eex([]), do: ""
-  def render_eex([h | []]), do: render_eex(h)
   def render_eex([h | t]) do
     "#{render_eex(h)}#{render_eex(t)}"
     #render_eex(h)
@@ -72,29 +71,10 @@ defmodule Slix do
 #    end
   end
 
-
-  def children_of(depth, list) do
-    Enum.split_while(list, fn(x) -> x[:indent] > depth end)
-  end
-
   def children_of(_, []) do
     [[],[]]
   end
-
-
-  def html(tag) do
-    "<#{tag}>"
-  end
-
-  def closing_tag(tag) do
-    html("/#{tag}")
-  end
-
-  def html(tag, content) when is_function(content) do
-    html(tag, content.())
-  end
-
-  def html(tag, content) do
-    "#{html(tag)}#{content}#{closing_tag(tag)}"
+  def children_of(depth, list) do
+    Enum.split_while(list, fn(x) -> x[:indent] > depth end)
   end
 end
