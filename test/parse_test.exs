@@ -7,6 +7,17 @@ defmodule SlixTest.ParseTest do
     assert Slix.Parse.parse(source) == %Slix.Parse.Html{tag: "p"}
   end
 
+
+  test "no tags classes" do
+    source = ".cheese"
+
+    assert Slix.Parse.parse(source) == %Slix.Parse.Html{
+      tag: "div",
+      attrs: [
+        %Slix.Parse.HtmlAttr{ attr: "class", value: "cheese"}
+        ]
+      }
+  end
   test "detects classes" do
     source = "p.cheese"
 

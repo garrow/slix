@@ -20,6 +20,10 @@ defmodule Slix.Parse do
     end
   end
 
+  def handle_html_tag( empty_tag = %{ "classes" => _, "id" => _, "tag" => ""}) do
+    handle_html_tag %{ empty_tag | "tag" => "div" }
+  end
+
   def handle_html_tag(%{ "classes" => classes, "id" => id, "tag" => tag}) do
     class_terms = String.replace(classes, ".", " ") |> String.lstrip
 
